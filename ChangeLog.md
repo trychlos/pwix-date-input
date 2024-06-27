@@ -7,6 +7,7 @@
     Release date:
 
     - Replace .APP (application code) to .PCK (package code)
+    - Fix date conversions by using pwix:date package
 
 ### 1.0.0
 

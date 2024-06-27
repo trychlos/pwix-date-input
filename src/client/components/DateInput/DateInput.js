@@ -17,6 +17,7 @@
  * Triggers a 'date-input-data' event with the date as a Date (or null if invalid).
  */
 
+import { DateJs } from 'meteor/pwix:date';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Random } from 'meteor/random';
 import { UIU } from 'meteor/pwix:ui-utils';
@@ -39,15 +40,15 @@ Template.DateInput.onCreated( function(){
         help(){
             if( self.view.isRendered ){
                 const str = self.$( '.DateInput input' ).val();
-                const d = DateInput.Date.sanitize( str );
-                const help = d ? DateInput.Date.toString( d, { format: self.PCK.help_format }) : '&nbsp;';
+                const d = DateJs.sanitize( str );
+                const help = d ? DateJs.toString( d, { format: self.PCK.help_format }) : '&nbsp;';
                 self.$( '.DateInput p.help' ).html( help );
                 self.$( '.DateInput' ).trigger( 'date-input-data', { name: self.PCK.name, date: d });
             }
         }
     };
     // because a value of a hash cannot be computed based on another value of this same hash at initialization time
-    self.PCK.jqInput = DateInput.Date.strftime2jquery( self.PCK.input_format );
+    self.PCK.jqInput = DateJs.strftime2jquery( self.PCK.input_format );
 });
 
 Template.DateInput.onRendered( function(){
