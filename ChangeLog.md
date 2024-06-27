@@ -6,7 +6,7 @@
 
     Release date:
 
-    -
+    - Replace .APP (application code) to .PCK (package code)
 
 ### 1.0.0
 
