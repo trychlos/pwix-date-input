@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.0.1-rc
+### 1.0.1
 
-    Release date:
+    Release date: 2024- 6-28
 
     - Replace .APP (application code) to .PCK (package code)
     - Fix date conversions by using pwix:date package
@@ -17,4 +17,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, Jun. 27th
+- Last updated on 2024, Jun. 28th
