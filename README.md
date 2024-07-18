@@ -36,6 +36,50 @@ The exported `DateInput` global object provides following items:
 
     See [below](#configuration).
 
+## Configuration
+
+The package's behavior can be configured through a call to the `DateInput.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.
+
+Known configuration options are:
+
+- `inputFormat`
+
+    The `strftime` input format, defaulting to `%Y-%m-%d` which is a ISO date as in '2024-07-13'.
+
+- `placeholder`
+
+    A string to be used as placeholder, should be consistent with the configured input format.
+
+- `withHelp`
+
+    Whether an help string should be displayed when entering a date, defaulting to `false`.
+
+- `helpFormat`
+
+    The `strftime` help format, defaulting to `%e %b %Y` which is a rather-well readable date as in '13 Jul. 2024'.
+
+- `verbosity`
+
+    Define the expected verbosity level.
+
+    The accepted value can be any or-ed combination of following:
+
+    - `DateInput.C.Verbose.NONE`
+
+        Do not display any trace log to the console
+
+    - `DateInput.C.Verbose.CONFIGURE`
+
+        Trace `DateInput.configure()` calls and their result
+    
+    Defaults to `DateInput.C.Verbose.CONFIGURE`.
+
+Please note that `DateInput.configure()` method should be called in the same terms both in client and server sides.
+
+Remind too that Meteor packages are instanciated at application level. They are so only configurable once, or, in other words, only one instance has to be or can be configured. Addtionnal calls to `DateInput.configure()` will just override the previous one. You have been warned: **only the application should configure a package**.
+
+`DateInput.configure()` is a reactive data source.
+
 ## NPM peer dependencies
 
 Starting with v 1.0.0, and in accordance with advices from [the Meteor Guide](https://guide.meteor.com/writing-atmosphere-packages.html#peer-npm-dependencies), we no more hardcode NPM dependencies in the `Npm.depends` clause of the `package.js`.

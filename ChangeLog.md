@@ -2,11 +2,11 @@
 
 ## ChangeLog
 
-### 1.0.2-rc
+### 1.1.0-rc
 
     Release date: 
 
-    - 
+    - inputFormat, placeholder, witHelp and helpFormat can now be configured, bumping minor candidate version number
 
 ### 1.0.1
 

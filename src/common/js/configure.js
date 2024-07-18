@@ -11,7 +11,11 @@ let _conf = {};
 DateInput._conf = new ReactiveVar( _conf );
 
 DateInput._defaults = {
-    verbosity: DateInput.C.Verbose.CONFIGURE
+    helpFormat: '%e %b %Y',
+    inputFormat: '%Y-%m-%d',
+    placeholder: 'yyyy-mm-dd',
+    verbosity: DateInput.C.Verbose.CONFIGURE,
+    withHelp: false
 };
 
 /**
