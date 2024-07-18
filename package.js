@@ -1,6 +1,6 @@
 Package.describe({
     name: 'pwix:date-input',
-    version: '1.1.1',
+    version: '1.1.2-rc',
     summary: 'A Meteor package to manage validities',
     git: 'https://github.com/trychlos/pwix-date-input.git',
     documentation: 'README.md'
