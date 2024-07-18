@@ -2,9 +2,9 @@
 
 ## ChangeLog
 
-### 1.1.0-rc
+### 1.1.0
 
-    Release date: 
+    Release date: 2024- 7-18
 
     - inputFormat, placeholder, witHelp and helpFormat can now be configured, bumping minor candidate version number
     - Let the user enter a date without overwriting it
@@ -24,4 +24,4 @@
 
 ---
 P. Wieser
-- Last updated on 2024, Jun. 28th
+- Last updated on 2024, Jul. 18th
