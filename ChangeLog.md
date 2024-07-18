@@ -7,6 +7,7 @@
     Release date: 
 
     - inputFormat, placeholder, witHelp and helpFormat can now be configured, bumping minor candidate version number
+    - Let the user enter a date without overwriting it
 
 ### 1.0.1
 

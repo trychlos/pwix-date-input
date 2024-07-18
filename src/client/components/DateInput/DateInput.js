@@ -9,10 +9,10 @@
  * - name: optional name
  * - value: the intial date (if any)
  * - defaultValue: the default value when selecting a date, defaulting to date of day
- * - input_format: the desired input format, defaulting to '%Y-%m-%d'
- * - placeholder: the desired placeholder, no default
- * - help_format: the desired help format, defaulting to '%e %b %Y'
- * - withHelp: whether we make use of help format, defaulting to true
+ * - inputFormat: the desired input (strftime) format, defaulting to the configured one
+ * - placeholder: the desired placeholder, defaulting to the configured one
+ * - helpFormat: the desired help (strftime) format, defaulting to the configured one
+ * - withHelp: whether we make use of help format, defaulting to the configured one
  *
  * Triggers a 'date-input-data' event with the date as a Date (or null if invalid).
  */
@@ -30,25 +30,28 @@ Template.DateInput.onCreated( function(){
     self.PCK = {
         id: 'id-' + Random.id(),
         name: Template.currentData().name || 'date-input',
-        input_format: Template.currentData().input_format || '%F',
-        help_format: Template.currentData().help_format || '%e %b %Y',
-        placeholder: Template.currentData().placeholder || '',
+        inputFormat: Template.currentData().inputFormat || DateInput.configure().inputFormat,
+        helpFormat: Template.currentData().helpFormat || DateInput.configure().helpFormat,
+        placeholder: Template.currentData().placeholder || DateInput.configure().placeholder,
+        withHelp: Template.currentData().withHelp || DateInput.configure().withHelp,
         jqInput: null,
-        initialized: new ReactiveVar( false ),
+        domReady: new ReactiveVar( false ),
+        valueSet: new ReactiveVar( false ),
 
         // update the help text and send the data event
         help(){
             if( self.view.isRendered ){
                 const str = self.$( '.DateInput input' ).val();
                 const d = DateJs.sanitize( str );
-                const help = d ? DateJs.toString( d, { format: self.PCK.help_format }) : '&nbsp;';
+                const help = d ? DateJs.toString( d, { format: self.PCK.helpFormat }) : '&nbsp;';
                 self.$( '.DateInput p.help' ).html( help );
                 self.$( '.DateInput' ).trigger( 'date-input-data', { name: self.PCK.name, date: d });
             }
         }
     };
-    // because a value of a hash cannot be computed based on another value of this same hash at initialization time
-    self.PCK.jqInput = DateJs.strftime2jquery( self.PCK.input_format );
+
+    // because a value of PCK hash cannot be computed based on another value of this same hash at initialization time
+    self.PCK.jqInput = DateJs.strftime2jquery( self.PCK.inputFormat );
 });
 
 Template.DateInput.onRendered( function(){
@@ -58,29 +61,32 @@ Template.DateInput.onRendered( function(){
     const selector = '.DateInput#'+self.PCK.id+' input';
     const defaultValue = Template.currentData().defaultValue || null;
     UIU.DOM.waitFor( selector )
-        .then(( element ) => {
-            self.$( selector ).datepicker({
+        .then(( elt ) => {
+            let parms = {
                 dateFormat: self.PCK.jqInput,
                 defaultDate: defaultValue,
                 todayHighlight: true,
                 onClose: function( strdate, dp ){
                     const parsed = $.datepicker.parseDate( self.PCK.jqInput, strdate );
-                    //console.log( 'strdate', strdate, 'parsed', parsed );    // date is the entered date as a string in 'yyyy-mm-dd' format, parsed is a Date
+                    //console.log( 'strdate', strdate, 'parsed', parsed );    // strdate is the entered date as a string in 'yyyy-mm-dd' format, parsed is a Date
                     //element.dispatchEvent( new Event( 'input', { bubbles: true, cancelable: true }));
                     self.$( selector ).trigger( 'input' );
                     // prevent the focus to go the header cross close button
                     //element.focus();
                     return false;
                 }
-            });
-            self.PCK.initialized.set( true );
+            };
+            self.$( selector ).datepicker( parms );
+            self.PCK.domReady.set( true );
         });
 
     // setup the initial value
     self.autorun(() => {
-        if( self.PCK.initialized.get()){
+        if( self.PCK.domReady.get() && !self.PCK.valueSet.get()){
+            console.debug( 'initializing value' );
             self.$( selector ).datepicker( 'setDate', Template.currentData().value );
             self.PCK.help();
+            self.PCK.valueSet.set( true );
         }
     });
 });
@@ -96,14 +102,9 @@ Template.DateInput.helpers({
         return Template.instance().PCK.placeholder;
     },
 
-    // the help text
-    dHelp(){
-        Template.instance().PCK.help();
-    },
-
     // whether the caller wants a help text
     hasHelp(){
-        return this.withHelp !== false;
+        return Template.instance().PCK.withHelp !== false;
     },
 
     // component random identifier
