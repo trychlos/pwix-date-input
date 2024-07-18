@@ -6,7 +6,7 @@
 
     Release date: 
 
-    - 
+    - Remove useless debug line
 
 ### 1.1.0
 

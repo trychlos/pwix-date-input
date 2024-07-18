@@ -83,7 +83,6 @@ Template.DateInput.onRendered( function(){
     // setup the initial value
     self.autorun(() => {
         if( self.PCK.domReady.get() && !self.PCK.valueSet.get()){
-            console.debug( 'initializing value' );
             self.$( selector ).datepicker( 'setDate', Template.currentData().value );
             self.PCK.help();
             self.PCK.valueSet.set( true );
