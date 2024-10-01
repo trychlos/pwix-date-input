@@ -7,7 +7,6 @@ import _ from 'lodash';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 let _conf = {};
-
 DateInput._conf = new ReactiveVar( _conf );
 
 DateInput._defaults = {
@@ -26,7 +25,7 @@ DateInput._defaults = {
  */
 DateInput.configure = function( o ){
     if( o && _.isObject( o )){
-        _.merge( _conf, DateInput._defaults, o );
+        _conf = _.merge( DateInput._defaults, _conf, o );
         DateInput._conf.set( _conf );
         // be verbose if asked for
         if( _conf.verbosity & DateInput.C.Verbose.CONFIGURE ){
@@ -37,5 +36,5 @@ DateInput.configure = function( o ){
     return DateInput._conf.get();
 }
 
-_.merge( _conf, DateInput._defaults );
+_conf = _.merge( {}, DateInput._defaults );
 DateInput._conf.set( _conf );
