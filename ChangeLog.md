@@ -9,6 +9,7 @@
     - Accept an id in the data context
     - Improve the README
     - Accept an input identifier in the data context, thus bumping minor candidate version number
+    - Doesn't set an initial date if not provided in the data context
 
 ### 1.1.2
 

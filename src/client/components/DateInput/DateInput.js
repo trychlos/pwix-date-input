@@ -8,7 +8,7 @@
  * Parms:
  * - name: optional name
  * - id: an optional input identifier
- * - value: the intial date (if any)
+ * - value: an optional initial Date (if any)
  * - defaultValue: the default value when selecting a date, defaulting to date of day
  * - inputFormat: the desired input (strftime) format, defaulting to the configured one
  * - placeholder: the desired placeholder, defaulting to the configured one
@@ -63,6 +63,7 @@ Template.DateInput.onRendered( function(){
     const defaultValue = Template.currentData().defaultValue || null;
     UIU.DOM.waitFor( selector )
         .then(( elt ) => {
+            //console.debug( self );
             let parms = {
                 dateFormat: self.PCK.jqInput,
                 defaultDate: defaultValue,
@@ -72,7 +73,7 @@ Template.DateInput.onRendered( function(){
                     //console.log( 'strdate', strdate, 'parsed', parsed );    // strdate is the entered date as a string in 'yyyy-mm-dd' format, parsed is a Date
                     //element.dispatchEvent( new Event( 'input', { bubbles: true, cancelable: true }));
                     self.$( selector ).trigger( 'input' );
-                    // prevent the focus to go the header cross close button
+                    // prevent the focus to go to the header cross close button
                     //element.focus();
                     return false;
                 }
@@ -84,17 +85,12 @@ Template.DateInput.onRendered( function(){
     // setup the initial value
     self.autorun(() => {
         if( self.PCK.domReady.get() && !self.PCK.valueSet.get()){
-            self.$( selector ).datepicker( 'setDate', Template.currentData().value );
-            self.PCK.help();
-            self.PCK.valueSet.set( true );
-        }
-    });
-
-    // setup an optional identifier
-    self.autorun(() => {
-        const id = Template.currentData().id;
-        if( self.PCK.domReady.get() && id ){
-            self.$( selector ).prop( 'id', id );
+            const value = Template.currentData().value;
+            if( value ){
+                self.$( selector ).datepicker( 'setDate', value );
+                self.PCK.help();
+                self.PCK.valueSet.set( true );
+            }
         }
     });
 });
@@ -120,9 +116,9 @@ Template.DateInput.helpers({
         return Template.instance().PCK.id;
     },
 
-    // parms for coreFieldCheckIndicator
-    parmsCheckIndicator(){
-        return {};
+    // input identifier
+    idInput(){
+        return this.id || null;
     }
 });
 

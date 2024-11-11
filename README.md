@@ -48,7 +48,7 @@ Accepted data context is:
 
 - `id`: the input identifier to be set, defaulting to none
 
-- `value`: the intial date (if any)
+- `value`: an optional initial Date (if any)
 
 - `defaultValue`: the default value when selecting a date, defaulting to date of day
 
