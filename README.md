@@ -36,6 +36,30 @@ The exported `DateInput` global object provides following items:
 
     See [below](#configuration).
 
+### Blaze components
+
+#### `DateInput`
+
+A Blaze component which let you enter a date, or pick a date from the integrated jQuery calendar, and see the date in another format to be sure to not mix month and days.
+
+Accepted data context is:
+
+- `name`: an optional name, just to improve debug messages
+
+- `id`: the input identifier to be set, defaulting to none
+
+- `value`: the intial date (if any)
+
+- `defaultValue`: the default value when selecting a date, defaulting to date of day
+
+- `inputFormat`: the desired input (strftime) format, defaulting to the configured one
+
+- `placeholder`: the desired placeholder, defaulting to the configured one
+
+- `helpFormat`: the desired help (strftime) format, defaulting to the configured one
+
+- `withHelp`: whether we make use of help format, defaulting to the configured one
+
 ## Configuration
 
 The package's behavior can be configured through a call to the `DateInput.configure()` method, with just a single javascript object argument, which itself should only contains the options you want override.

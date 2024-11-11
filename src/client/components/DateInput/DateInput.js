@@ -7,6 +7,7 @@
  *
  * Parms:
  * - name: optional name
+ * - id: an optional input identifier
  * - value: the intial date (if any)
  * - defaultValue: the default value when selecting a date, defaulting to date of day
  * - inputFormat: the desired input (strftime) format, defaulting to the configured one
@@ -86,6 +87,14 @@ Template.DateInput.onRendered( function(){
             self.$( selector ).datepicker( 'setDate', Template.currentData().value );
             self.PCK.help();
             self.PCK.valueSet.set( true );
+        }
+    });
+
+    // setup an optional identifier
+    self.autorun(() => {
+        const id = Template.currentData().id;
+        if( self.PCK.domReady.get() && id ){
+            self.$( selector ).prop( 'id', id );
         }
     });
 });

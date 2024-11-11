@@ -2,11 +2,13 @@
 
 ## ChangeLog
 
-### 1.1.3-rc
+### 1.2.0-rc
 
     Release date: 
 
-    - 
+    - Accept an id in the data context
+    - Improve the README
+    - Accept an input identifier in the data context, thus bumping minor candidate version number
 
 ### 1.1.2
 
