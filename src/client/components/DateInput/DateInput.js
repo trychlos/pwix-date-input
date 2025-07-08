@@ -21,7 +21,7 @@
 import { DateJs } from 'meteor/pwix:date';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Random } from 'meteor/random';
-import { UIU } from 'meteor/pwix:ui-utils';
+import { UIUtils } from 'meteor/pwix:ui-utils';
 
 import './DateInput.html';
 
@@ -61,7 +61,7 @@ Template.DateInput.onRendered( function(){
     // initialize the datepicker DOM element
     const selector = '.DateInput#'+self.PCK.id+' input';
     const defaultValue = Template.currentData().defaultValue || null;
-    UIU.DOM.waitFor( selector )
+    UIUtils.DOM.waitFor( selector )
         .then(( elt ) => {
             //console.debug( self );
             let parms = {
